@@ -19,6 +19,7 @@ class Fraccion implements Comparable<Fraccion>{
 		this.den = den;
 		if (den==0)
 			throw new InvalidFractionException();
+		this.simplificar();
 	}
 
 	/*
@@ -102,9 +103,9 @@ class Fraccion implements Comparable<Fraccion>{
 		return len;
 	}
 
-	int compareTo(Fraccion other){
-		Double one = num/den;
-		Double two = other.num/other.den;
+	public int compareTo(Fraccion other){
+		Double one = (double)num/(double)den;
+		Double two = (double)other.num/(double)other.den;
 		if (one>two) 
 		 	return 1;
 		if (two>one)
