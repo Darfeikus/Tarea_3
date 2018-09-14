@@ -7,14 +7,9 @@ class Main{
 	static Fraccion[] selectionSort(Fraccion[] fractions){
 		for(int j = 0; j<fractions.length;j++){
 			int minimumIndex = j;
-			int currentInd = j;
 			for (int i = j;i<fractions.length-1;i++)
-				if (fractions[currentInd].compareTo(fractions[i+1])==-1)
-					minimumIndex=currentInd;
-				else{
+				if (fractions[minimumIndex].compareTo(fractions[i+1])==1)
 					minimumIndex=i+1;
-					currentInd=i+1;
-				}
 			Fraccion temp = fractions[j];
 			fractions[j]=fractions[minimumIndex];
 			fractions[minimumIndex]=temp;
@@ -39,19 +34,16 @@ class Main{
 	//method that sorts an array of fractions with bubble sort
 
 	static Fraccion[] bubbleSort(Fraccion[] fractions){
-		for(int j = 0; j<fractions.length-1;j++){
-			int maximumIndex = 0;
+		for(int j = 0; j<fractions.length;j++){
 			int currentBubble = 0;
 			for (int i = 0;i<fractions.length-1;i++){
 				if (fractions[currentBubble].compareTo(fractions[i+1])==1){
 					Fraccion temp = fractions[i+1];
 					fractions[i+1]=fractions[currentBubble];
 					fractions[currentBubble]=temp;
-					maximumIndex=i+1;
-					i++;
+					currentBubble++;
 				}
 				else{
-					maximumIndex=i+1;
 					currentBubble++;
 				}
 			}
@@ -109,7 +101,6 @@ class Main{
 
 	static Fraccion[] quickSort(Fraccion[] fractions){
 		int pivot = fractions.length-1;
-		boolean maxFound = false;
 		int max = 0;
 		if (fractions.length<=1)
 			return fractions;
@@ -176,10 +167,10 @@ class Main{
 		//printArray(insertionSort(myFractions));
 		//System.out.println("bubble sort:");
 		//printArray(bubbleSort(myFractions));
-		//System.out.println("merge sort:");
-		//printArray(mergeSort(myFractions));
-		System.out.println("quick sort:");
-		printArray(quickSort(myFractions));
+		System.out.println("merge sort:");
+		printArray(mergeSort(myFractions));
+		//System.out.println("quick sort:");
+		//printArray(quickSort(myFractions));
 	}
 
 }
