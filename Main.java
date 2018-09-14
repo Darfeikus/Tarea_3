@@ -105,21 +105,50 @@ class Main{
 		return fractions;
 	}
 
+	//method that sorts an array of fractions with quick sort
+
 	static Fraccion[] quickSort(Fraccion[] fractions){
-		int index = 0;
-		int minimumIndex = 0;
-		while(index<fractions.length-1){
-			for (int i = index;i<fractions.length-1;i++) {
-				if (fractions[i].compareTo(fractions[i+1])==-1)
-					minimumIndex=i;
-				else
-					minimumIndex=i+1;
+		int pivot = fractions.length-1;
+		boolean maxFound = false;
+		int max = 0;
+		if (fractions.length<=1)
+			return fractions;
+		if (fractions.length==2){
+			if (fractions[0].compareTo(fractions[1])==1) {
+				Fraccion temp = fractions[1];
+				fractions[1]=fractions[0];
+				fractions[0]=temp;
 			}
-			Fraccion temp = fractions[index];
-			fractions[index]=fractions[minimumIndex];
-			fractions[minimumIndex]=temp;
-			index++;
+			return fractions;
+		} 			
+		else{
+			for (int i =0;i<pivot;i++){
+				if (fractions[i].compareTo(fractions[pivot])==-1){
+					Fraccion temp = fractions[max];
+					fractions[max]=fractions[i];
+					fractions[i]=temp;
+					max++;
+				}
+				if (i==pivot-1) {
+					Fraccion temp = fractions[max];
+					fractions[max]=fractions[pivot];
+					fractions[pivot]=temp;
+				}
+			}
+			Fraccion[] firstHalf = new Fraccion[max];
+			Fraccion[] secondHalf = new Fraccion[fractions.length-max-1];
+			for (int i = 0;i<max;i++)
+				firstHalf[i]=fractions[i];
+			for (int i = 0;i<secondHalf.length;i++)
+				secondHalf[i]=fractions[max+1+i];
+			firstHalf = quickSort(firstHalf);
+			secondHalf = quickSort(secondHalf);
+			for (int i = 0;i<max;i++)
+				fractions[i]=firstHalf[i];
+			for (int i = 0;i<secondHalf.length;i++)
+				fractions[max+1+i]=secondHalf[i];
 		}
+		
 		return fractions;
 	}
 
@@ -141,16 +170,16 @@ class Main{
 		Fraccion[] myFractions = new Fraccion[noFractions];
 		for(int i = 0; i<noFractions; i++)
 			myFractions[i] = new Fraccion(s.nextInt(),s.nextInt());
-		System.out.println("selection sort:");
-		printArray(selectionSort(myFractions));
-		System.out.println("insertion sort:");
-		printArray(insertionSort(myFractions));
-		System.out.println("bubble sort:");
-		printArray(bubbleSort(myFractions));
-		System.out.println("merge sort:");
-		printArray(mergeSort(myFractions));
-		//System.out.println("quick sort:");
-		//printArray(quickSort(myFractions));
+		//System.out.println("selection sort:");
+		//printArray(selectionSort(myFractions));
+		//System.out.println("insertion sort:");
+		//printArray(insertionSort(myFractions));
+		//System.out.println("bubble sort:");
+		//printArray(bubbleSort(myFractions));
+		//System.out.println("merge sort:");
+		//printArray(mergeSort(myFractions));
+		System.out.println("quick sort:");
+		printArray(quickSort(myFractions));
 	}
 
 }
